@@ -1,3 +1,4 @@
+import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { UserButton } from "@clerk/nextjs";
 
@@ -7,6 +8,7 @@ export default function Home() {
       <p className="text-3xl">Hello World</p>
       <Button>Click here</Button>
       <UserButton afterSignOutUrl="/" />
+      <ModeToggle />
     </div>
   );
 }
