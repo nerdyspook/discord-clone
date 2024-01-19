@@ -25,9 +25,10 @@ export default function FileUpload({
       <div className="relative h-20 w-20">
         <Image
           fill
+          sizes="160px"
           src={value}
           alt="Uploaded image"
-          className="rounded-full object-cover"
+          className="rounded-full object-cover border border-gray-500 bg-gray-300"
         />
         <button
           className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -24,6 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/file-upload";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
@@ -37,6 +39,7 @@ const formSchema = z.object({
 });
 
 export default function InitialModal({}: Props) {
+  const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -47,6 +50,7 @@ export default function InitialModal({}: Props) {
   });
 
   const {
+    reset,
     control,
     handleSubmit,
     formState: { isSubmitting: isLoading },
@@ -55,7 +59,14 @@ export default function InitialModal({}: Props) {
   //   const isLoading = form.formState.isSubmitting;
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log({ values });
+    try {
+      await axios.post("/api/servers", values);
+      reset();
+      router.refresh();
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
